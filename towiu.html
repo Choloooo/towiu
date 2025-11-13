@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOWIU | Premium Streetwear Hats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* --- HEADER --- */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      padding: 0 40px;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .header.shrink {
+      height: 60px;
+    }
+
+    .logo {
+      height: 70px;
+      object-fit: contain;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .header.shrink .logo {
+      height: 50px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover {
+      color: #e50914;
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      position: relative;
+      height: calc(100vh - 80px);
+      margin-top: 80px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+    }
+
+    .hero-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    .hero button {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1rem;
+      border: 2px solid #fff;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero button:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #fff;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* --- ABOUT SECTION --- */
+    .about {
+      padding: 80px 20px;
+      text-align: center;
+      background: #000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+    }
+
+    .about.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #bbb;
+      line-height: 1.8;
+    }
+
+    /* --- PRODUCTS SECTION --- */
+    .products {
+      padding: 80px 40px;
+      background: #000;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+    }
+
+    .products.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product-card {
+      background: #111;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px) scale(1.03);
+      background: #181818;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .product-name {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .product-price {
+      color: #ccc;
+      margin: 8px 0;
+    }
+
+    .buy-btn {
+      border: 1px solid #fff;
+      background: transparent;
+      color: #fff;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 30px;
+    }
+
+    .buy-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+      background: #111;
+      color: #ccc;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .footer h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .footer p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .footer a {
+      color: #e50914;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+      .nav-links { gap: 15px; }
+      .footer a { display: block; margin: 5px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <img src="towiu.jpg" alt="TOWIU Logo" class="logo">
+    <nav class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#products">Shop</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <video autoplay muted playsinline loop>
+      <source src="asinle.MP4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <h1>TOWIU COLLECTION</h1>
+      <p>Streetwear meets simplicity</p>
+      <button>Shop Now</button>
+    </div>
+    <div class="scroll-down">&#x2193;</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <h2>About TOWIU</h2>
+    <p>
+      TOWIU is a bold expression of culture, confidence, and creativity. 
+      Each hat is crafted with precision — built for dreamers, hustlers, and the next generation of icons. 
+      Designed to make a statement without saying a word.
+    </p>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="product-card">
+      <img src="hat2.jpg" alt="TOWIU Classic Cap">
+      <div class="product-name">TOWIU Classic Cap</div>
+      <div class="product-price">£50</div>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="hat2.jpg" alt="TOWIU Street Edition">
+      <div class="product-name">TOWIU Street Edition</div>
+      <div class="product-price">£60</div>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="hat2.jpg" alt="TOWIU Midnight Black">
+      <div class="product-name">TOWIU Midnight Black</div>
+      <div class="product-price">£65</div>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <h3>TOWIU</h3>
+    <p>&copy; 2025 TOWIU. All Rights Reserved.</p>
+    <p>
+      Follow us: 
+      <a href="#">Instagram</a> | 
+      <a href="#">Twitter</a> | 
+      <a href="#">Facebook</a>
+    </p>
+  </footer>
+
+  <script>
+    // Fade-in sections on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.hero-content, .about, .products').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Shrink header on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if(window.scrollY > 50){
+        header.classList.add('shrink');
+      } else {
+        header.classList.remove('shrink');
+      }
+    });
+
+    // Scroll down arrow
+    document.querySelector('.scroll-down').addEventListener('click', () => {
+      document.querySelector('.about').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
