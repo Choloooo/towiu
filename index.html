@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -322,21 +323,23 @@
   </header>
 
   <!-- HERO -->
-  <section class="hero" id="hero">
-    <img src="towiu.gif" alt="Background GIF" class="hero-bg">
+  <!-- HERO -->
+<section class="hero" id="hero">
+  <video id="heroVideo" class="hero-bg" autoplay muted loop playsinline preload="auto">
+    <source src="towiu2.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-    <div class="hero-content">
-  <h1>
-     T.O.W.I.U <span class="italic">The Only Way Is Up</span> Collection
-  </h1>
-  <p>Streetwear meets simplicity</p>
-  <button>Shop Now</button>
-</div>
+  <div class="hero-content">
+    <h1>
+      T.O.W.I.U <span class="italic">The Only Way Is Up</span> Collection
+    </h1>
+    <p>Streetwear meets simplicity</p>
+    <button>Shop Now</button>
+  </div>
 
-
-
-    <div class="scroll-down">&#x2193;</div>
-  </section>
+  <div class="scroll-down">&#x2193;</div>
+</section>
 
   <!-- ABOUT -->
   <section class="about" id="about">
@@ -411,6 +414,36 @@
       document.querySelector('.about').scrollIntoView({ behavior: 'smooth' });
     });
   </script>
+
+
+
+<script>
+const video = document.getElementById('heroVideo');
+
+  function tryPlayVideo() {
+    video.muted = true;
+    video.playsInline = true;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Retry on first user interaction
+        const retry = () => {
+          video.play();
+          document.removeEventListener('click', retry);
+          document.removeEventListener('touchstart', retry);
+        };
+        document.addEventListener('click', retry);
+        document.addEventListener('touchstart', retry);
+      });
+    }
+  }
+
+  window.addEventListener('load', tryPlayVideo);
+
+</script>
+
+
 
 </body>
 </html>
