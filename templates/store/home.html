@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOWIU | Premium Streetwear Hats</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo-container">
+      <img src="{% static 'store/images/towiu.jpg' %}" alt="TOWIU Logo" class="logo">
+      <span class="logo-text">The Only Way Is Up</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#products">Shop</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <video id="heroVideo" class="hero-bg" autoplay muted loop playsinline preload="auto">
+      <source src="{% static 'store/video/towiu2.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="hero-content">
+      <h1>The Only Way Is Up</h1>
+      <h2>Collections</h2>
+      <p>Streetwear meets simplicity</p>
+      <button>Shop Now</button>
+    </div>
+
+    <div class="scroll-down">&#x2193;</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <h2>About TOWIU</h2>
+    <p>
+      TOWIU is a bold expression of culture, confidence, and creativity. 
+      Each hat is crafted with precision — built for dreamers, hustlers, and the next generation of icons. 
+      Designed to make a statement without saying a word.
+    </p>
+  </section>
+
+  <!-- PRODUCTS -->
+<section class="products" id="products">
+  {% for hat in hats %}
+    <div class="product-card">
+
+      <div class="product-image">
+        <img src="{{ hat.image.url }}" alt="{{ hat.name }}">
+        {% if hat.has_discount %}
+          <span class="discount-badge">{{ hat.discount }}% OFF</span>
+        {% endif %}
+      </div>
+
+      <h3 class="product-name">{{ hat.name }}</h3>
+
+      <div class="product-price">
+  {% if hat.has_discount %}
+    <span class="old-price">£{{ hat.price }}</span>
+    <span class="discounted-price">£{{ hat.final_price }}</span>
+    <span class="discount-badge-inline">-{{ hat.discount }}%</span>
+  {% else %}
+    <span class="regular-price">£{{ hat.price }}</span>
+  {% endif %}
+</div>
+
+
+      <div class="product-buttons">
+        <button class="btn buy-now">Buy Now</button>
+
+        <button class="btn add-cart">
+          <!-- Cart Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M0 1a1 1 0 0 1 1-1h1.5a.5.5 0 0 1 .485.379L3.89 4H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 13H4a.5.5 0 0 1-.491-.408L1.01 1.607 0 1zm3.14 4 1.25 6h8.22l1.25-6H3.14zM5 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+          </svg>
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+  {% empty %}
+    <p>No products available yet.</p>
+  {% endfor %}
+</section>
+
+
+<!-- Floating Cart Button -->
+<div class="floating-cart">
+  <a href="{% url 'cart' %}" class="cart-link">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M0 1a1 1 0 0 1 1-1h1.5a.5.5 0 0 1 .485.379L3.89 4H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 13H4a.5.5 0 0 1-.491-.408L1.01 1.607 0 1zm3.14 4 1.25 6h8.22l1.25-6H3.14zM5 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+    </svg>
+    <span class="cart-count">{{ cart.items_count|default:0 }}</span>
+  </a>
+</div>
+
+
+
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <h3>The Only Way Is Up</h3>
+    <p>&copy; 2025 All Rights Reserved.</p>
+    <p>
+      Follow us:
+      <a href="#">Instagram</a> |
+      <a href="#">Twitter</a> |
+      <a href="#">Facebook</a>
+    </p>
+  </footer>
+
+  <!-- JS -->
+  <script src="{% static 'store/js/main.js' %}" defer></script>
+</body>
+</html>
